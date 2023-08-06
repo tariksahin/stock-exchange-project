@@ -32,11 +32,11 @@ public class StockExchangeServiceImpl {
 
     public Stock addStock(StockDTO stockDTO) {
 
-        String name = stockDTO.getName();
+        String stockName = stockDTO.getName();
         String description = stockDTO.getDescription();
 
         // Check if a stock with the same name or description already exists
-        if (stockRepository.existsByNameOrDescription(name, description)) {
+        if (stockRepository.existsByNameOrDescription(stockName, description)) {
             throw new ResourceAlreadyExistsException("Stock with the same name or description already exists.");
         }
 
@@ -57,13 +57,13 @@ public class StockExchangeServiceImpl {
        return stockExchangeRepository.save(stockExchange);
     }
 
-    public void deleteStockByName(String name) {
+    public void deleteStockByName(String stockName) {
 
-        Stock stock = stockRepository.findByName(name);
+        Stock stock = stockRepository.findByName(stockName);
         if (stock != null) {
             stockRepository.delete(stock);
         } else {
-            throw new ResourceNotFoundException("Stock not found with name: " + name);
+            throw new ResourceNotFoundException("Stock not found with name: " + stockName);
         }
     }
 
@@ -80,14 +80,14 @@ public class StockExchangeServiceImpl {
     }
 
 
-    public Stock findStockByName(String name) {
+    public Stock findStockByName(String stockName) {
 
-        return stockRepository.findByName(name);
+        return stockRepository.findByName(stockName);
     }
 
-    public StockExchange findStockExchangeByName(String name) {
+    public StockExchange findStockExchangeByName(String stockName) {
 
-        return stockExchangeRepository.findByName(name);
+        return stockExchangeRepository.findByName(stockName);
     }
 
     public List<Stock> getAllStocks() {

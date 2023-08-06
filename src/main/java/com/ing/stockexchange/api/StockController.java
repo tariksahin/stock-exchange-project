@@ -45,9 +45,9 @@ public class StockController {
 
 
     // Update stock price
-    @PutMapping("/{name}")
-    public ResponseEntity<Void> updateCurrentPrice(@PathVariable String name, @RequestBody BigDecimal newPrice) {
-        stockExchangeServiceImpl.updateCurrentPrice(name, newPrice);
+    @PutMapping("/{stockName}")
+    public ResponseEntity<Void> updateCurrentPrice(@PathVariable String stockName, @RequestBody BigDecimal newPrice) {
+        stockExchangeServiceImpl.updateCurrentPrice(stockName, newPrice);
         return ResponseEntity.noContent().build();
     }
 
@@ -61,10 +61,10 @@ public class StockController {
 
 
     //Delete stock from system
-    @DeleteMapping("/{name}")
-    public ResponseEntity<Void> deleteStockByName(@PathVariable String name){
+    @DeleteMapping("/{stockName}")
+    public ResponseEntity<Void> deleteStockByName(@PathVariable String stockName){
 
-        stockExchangeServiceImpl.deleteStockByName(name);
+        stockExchangeServiceImpl.deleteStockByName(stockName);
         return ResponseEntity.noContent().build();
     }
 
