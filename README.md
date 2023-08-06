@@ -86,7 +86,7 @@ The project provides various endpoints for managing stocks and stock exchanges.
 
    - Endpoint: `GET http://localhost:8080/api/stock-exchange`
    
-	**On this endpoint, the liveInMarket field is set to true when Stock Exchange has 5 or more stocks. **
+	**On this endpoint, the liveInMarket field is set to true when Stock Exchange has 5 or more stocks.**
 
 ### DELETE Endpoints
 
