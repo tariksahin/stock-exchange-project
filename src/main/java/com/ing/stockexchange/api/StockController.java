@@ -1,8 +1,6 @@
 package com.ing.stockexchange.api;
 
 
-
-
 import com.ing.stockexchange.dto.StockDTO;
 import com.ing.stockexchange.dto.StockExchangeDTO;
 import com.ing.stockexchange.entity.Stock;
@@ -47,9 +45,9 @@ public class StockController {
 
 
     // Update stock price
-    @PutMapping("/{stockName}/update-price")
-    public ResponseEntity<Void> updateCurrentPrice(@PathVariable String stockName, @RequestBody BigDecimal newPrice) {
-        stockExchangeServiceImpl.updateCurrentPrice(stockName, newPrice);
+    @PutMapping("/{name}")
+    public ResponseEntity<Void> updateCurrentPrice(@PathVariable String name, @RequestBody BigDecimal newPrice) {
+        stockExchangeServiceImpl.updateCurrentPrice(name, newPrice);
         return ResponseEntity.noContent().build();
     }
 

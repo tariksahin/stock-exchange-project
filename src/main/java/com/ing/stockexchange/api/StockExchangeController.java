@@ -3,7 +3,6 @@ package com.ing.stockexchange.api;
 
 import com.ing.stockexchange.entity.Stock;
 import com.ing.stockexchange.entity.StockExchange;
-import com.ing.stockexchange.entity.StockExchangeDetail;
 import com.ing.stockexchange.service.StockExchangeDetailService;
 import com.ing.stockexchange.service.StockExchangeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,11 +81,4 @@ public class StockExchangeController {
         return ResponseEntity.ok(stocks);
     }
 
-
-/*    @DeleteMapping("/{name}")
-    public ResponseEntity<Void> deleteStockFromStockExchangeByName(@PathVariable String name){
-
-        stockExchangeDetailService.deleteStockFromStockExchangeByName(name);
-        return ResponseEntity.noContent().build();
-    }*/
 }
