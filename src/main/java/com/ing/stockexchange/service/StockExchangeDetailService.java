@@ -59,24 +59,24 @@ public class StockExchangeDetailService {
         stockExchangeDetail.setStartDate(new Timestamp(System.currentTimeMillis()));
 
 
-            stockExchangeDetailRepository.save(stockExchangeDetail);
-            // Check the count of stocks for the given exchange
-            long stockCount = stockExchangeDetailRepository.countByIdExchangeId(exchangeId);
+        stockExchangeDetailRepository.save(stockExchangeDetail);
+        // Check the count of stocks for the given exchange
+        long stockCount = stockExchangeDetailRepository.countByIdExchangeId(exchangeId);
 
-            // Fetch the stock exchange entity
-            Optional<StockExchange> optionalStockExchange = stockExchangeRepository.findById(exchangeId);
-            if (optionalStockExchange.isPresent()) {
-                StockExchange stockExchange = optionalStockExchange.get();
+        // Fetch the stock exchange entity
+        Optional<StockExchange> optionalStockExchange = stockExchangeRepository.findById(exchangeId);
+        if (optionalStockExchange.isPresent()) {
+            StockExchange stockExchange = optionalStockExchange.get();
 
-                // Set the liveInMarket field to true if the stock count exceeds 5
-                boolean isLiveInMarket = false;
-                if(stockCount>=5){
-                    isLiveInMarket = true;
-                }
+            // Set the liveInMarket field to true if the stock count exceeds 5
+            boolean isLiveInMarket = false;
+            if (stockCount >= 5) {
+                isLiveInMarket = true;
+            }
 
-                stockExchange.setLiveInMarket(isLiveInMarket);
+            stockExchange.setLiveInMarket(isLiveInMarket);
 
-                stockExchangeRepository.save(stockExchange);
+            stockExchangeRepository.save(stockExchange);
         }
 
     }
@@ -114,8 +114,6 @@ public class StockExchangeDetailService {
     public List<StockExchange> getAllStockExchanges() {
         return stockExchangeRepository.findAll();
     }
-
-
 
 
 }

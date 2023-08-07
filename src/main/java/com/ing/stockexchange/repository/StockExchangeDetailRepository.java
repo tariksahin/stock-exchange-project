@@ -11,7 +11,9 @@ public interface StockExchangeDetailRepository extends JpaRepository<StockExchan
     void deleteByStockExchangeNameAndStockName(String stockExchangeName, String stockName);
 
     void deleteByStockExchangeName(String stockExchangeName);
+
     List<StockExchangeDetail> findByIdExchangeId(long exchangeId);
+
     StockExchangeDetail findByStockExchangeName(String stockExchangeName);
 
     long countByIdExchangeId(long exchangeId);

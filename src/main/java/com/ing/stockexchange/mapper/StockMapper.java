@@ -16,11 +16,14 @@ public interface StockMapper {
 
 
     Stock toEntity(StockDTO stockDTO);
+
     StockDTO toDTO(Stock stock);
 
     StockExchange toEntity(StockExchangeDTO stockExchangeDTO);
+
     StockExchangeDTO toDTO(StockExchange stockExchange);
 
     StockExchangeDetail toEntity(StockExchangeDetailDTO stockExchangeDetailDTO);
+
     StockExchangeDetailDTO toDTO(StockExchangeDetail stockExchangeDetail);
 }

@@ -60,10 +60,9 @@ public class StockController {
     }
 
 
-
     //Delete stock from system
     @DeleteMapping("/{stockName}")
-    public ResponseEntity<Void> deleteStockByName(@PathVariable String stockName){
+    public ResponseEntity<Void> deleteStockByName(@PathVariable String stockName) {
 
         stockExchangeServiceImpl.deleteStockByName(stockName);
         return ResponseEntity.ok().build();

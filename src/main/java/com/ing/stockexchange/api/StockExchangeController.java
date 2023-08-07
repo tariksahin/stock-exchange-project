@@ -44,7 +44,7 @@ public class StockExchangeController {
             stockExchangeDetailService.addStockToExchange(stock.getStockId(), stockExchange.getExchangeId(), stockName, stockExchangeName);
             return ResponseEntity.ok("Stock added to Stock Exchange successfully.");
         } catch (DuplicateKeyException ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Stock with name " + stockName + " already exists in the exchange " +stockExchangeName);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Stock with name " + stockName + " already exists in the exchange " + stockExchangeName);
         }
 
 

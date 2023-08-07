@@ -54,7 +54,7 @@ public class StockExchangeServiceImpl {
         StockExchange stockExchange = StockMapper.INSTANCE.toEntity(stockExchangeDTO);
         stockExchange.setLiveInMarket(false);
 
-       return stockExchangeRepository.save(stockExchange);
+        return stockExchangeRepository.save(stockExchange);
     }
 
     public void deleteStockByName(String stockName) {
@@ -93,7 +93,6 @@ public class StockExchangeServiceImpl {
     public List<Stock> getAllStocks() {
         return stockRepository.findAll();
     }
-
 
 
 }

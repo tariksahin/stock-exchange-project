@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "STOCK_EXCHANGE")
-@SequenceGenerator(name = "stock_exchange_sequence", sequenceName = "stock_exchange_seq", allocationSize=1)
+@SequenceGenerator(name = "stock_exchange_sequence", sequenceName = "stock_exchange_seq", allocationSize = 1)
 public class StockExchange {
 
     @Id

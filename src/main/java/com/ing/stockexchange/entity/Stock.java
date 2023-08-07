@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "STOCK")
-@SequenceGenerator(name = "stock_sequence", sequenceName = "stock_seq", allocationSize=1)
+@SequenceGenerator(name = "stock_sequence", sequenceName = "stock_seq", allocationSize = 1)
 public class Stock {
 
     @Id
