@@ -86,7 +86,7 @@ The project provides various endpoints for managing stocks and stock exchanges.
 
    - Endpoint: `GET http://localhost:8080/api/stock-exchange`
    
-	**On this endpoint, the liveInMarket field is set to true when Stock Exchange has 5 or more stocks.**
+	**On this endpoint, the liveInMarket field is set to true when Stock Exchange has 5 or more stocks. **
 
 ### DELETE Endpoints
 
@@ -106,11 +106,12 @@ The project provides various endpoints for managing stocks and stock exchanges.
 
 1. **Update Current Price of a Stock**
 
-   - Endpoint: `PUT http://localhost:8080/api/stock/{stockName}`
+   - Endpoint: `PUT http://localhost:8080/api/stock`
    - Example JSON Body:
      
      {
-         "newPrice": 100.00
+         "newPrice": 100.00,
+         "stockName": "ING"
      }
     
 
