@@ -65,13 +65,13 @@ public class StockExchangeController {
     @DeleteMapping("/{stockExchangeName}/{stockName}")
     public ResponseEntity<Void> removeStockFromExchange(@PathVariable String stockExchangeName, @PathVariable String stockName) {
         stockExchangeDetailService.removeStockFromExchange(stockExchangeName, stockName);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{stockExchangeName}")
     public ResponseEntity<Void> removeStockExchange(@PathVariable String stockExchangeName) {
         stockExchangeDetailService.removeStockExchange(stockExchangeName);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
     //List of stocks

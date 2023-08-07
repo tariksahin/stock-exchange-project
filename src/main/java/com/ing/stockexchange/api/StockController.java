@@ -3,6 +3,7 @@ package com.ing.stockexchange.api;
 
 import com.ing.stockexchange.dto.StockDTO;
 import com.ing.stockexchange.dto.StockExchangeDTO;
+import com.ing.stockexchange.dto.UpdatePriceRequest;
 import com.ing.stockexchange.entity.Stock;
 import com.ing.stockexchange.entity.StockExchange;
 import com.ing.stockexchange.mapper.StockMapper;
@@ -45,10 +46,10 @@ public class StockController {
 
 
     // Update stock price
-    @PutMapping("/{stockName}")
-    public ResponseEntity<Void> updateCurrentPrice(@PathVariable String stockName, @RequestBody BigDecimal newPrice) {
-        stockExchangeServiceImpl.updateCurrentPrice(stockName, newPrice);
-        return ResponseEntity.noContent().build();
+    @PutMapping
+    public ResponseEntity<Void> updateCurrentPrice(@RequestBody UpdatePriceRequest updatePriceRequest) {
+        stockExchangeServiceImpl.updateCurrentPrice(updatePriceRequest.getStockName(), updatePriceRequest.getNewPrice());
+        return ResponseEntity.ok().build();
     }
 
     //List of stocks
@@ -65,7 +66,7 @@ public class StockController {
     public ResponseEntity<Void> deleteStockByName(@PathVariable String stockName){
 
         stockExchangeServiceImpl.deleteStockByName(stockName);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
 
