@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StockExchangeRepository extends JpaRepository<StockExchange, Long> {
     StockExchange findByName(String name);
+
+    boolean existsByNameOrDescription(String name, String description);
 }

@@ -51,6 +51,13 @@ public class StockExchangeServiceImpl {
 
     public StockExchange addStockExchange(StockExchangeDTO stockExchangeDTO) {
 
+        String stockExchangeName = stockExchangeDTO.getName();
+        String description = stockExchangeDTO.getDescription();
+        // Check if a stock with the same name or description already exists
+        if (stockExchangeRepository.existsByNameOrDescription(stockExchangeName, description)) {
+            throw new ResourceAlreadyExistsException("Stock exchange with the same name or description already exists.");
+        }
+
         StockExchange stockExchange = StockMapper.INSTANCE.toEntity(stockExchangeDTO);
         stockExchange.setLiveInMarket(false);
 
@@ -82,12 +89,20 @@ public class StockExchangeServiceImpl {
 
     public Stock findStockByName(String stockName) {
 
-        return stockRepository.findByName(stockName);
+        Stock stock = stockRepository.findByName(stockName);
+        if (stock == null) {
+            throw new ResourceNotFoundException("Stock not found with name: " + stockName);
+        }
+        return stock;
     }
 
     public StockExchange findStockExchangeByName(String stockName) {
 
-        return stockExchangeRepository.findByName(stockName);
+        StockExchange stockExchange = stockExchangeRepository.findByName(stockName);
+        if (stockExchange == null) {
+            throw new ResourceNotFoundException("Stock Exchange not found with name: " + stockName);
+        }
+        return stockExchange;
     }
 
     public List<Stock> getAllStocks() {

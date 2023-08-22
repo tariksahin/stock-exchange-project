@@ -6,7 +6,6 @@ import com.ing.stockexchange.entity.StockExchange;
 import com.ing.stockexchange.service.StockExchangeDetailService;
 import com.ing.stockexchange.service.StockExchangeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,20 +31,10 @@ public class StockExchangeController {
         Stock stock = stockService.findStockByName(stockName);
         StockExchange stockExchange = stockService.findStockExchangeByName(stockExchangeName);
 
-        if (stock == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Stock with name '" + stockName + "' not found.");
-        }
 
-        if (stockExchange == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Stock Exchange with name '" + stockExchangeName + "' not found.");
-        }
-
-        try {
             stockExchangeDetailService.addStockToExchange(stock.getStockId(), stockExchange.getExchangeId(), stockName, stockExchangeName);
             return ResponseEntity.ok("Stock added to Stock Exchange successfully.");
-        } catch (DuplicateKeyException ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Stock with name " + stockName + " already exists in the exchange " + stockExchangeName);
-        }
+
 
 
     }
@@ -63,15 +52,15 @@ public class StockExchangeController {
     }
 
     @DeleteMapping("/{stockExchangeName}/{stockName}")
-    public ResponseEntity<Void> removeStockFromExchange(@PathVariable String stockExchangeName, @PathVariable String stockName) {
+    public ResponseEntity<String> removeStockFromExchange(@PathVariable String stockExchangeName, @PathVariable String stockName) {
         stockExchangeDetailService.removeStockFromExchange(stockExchangeName, stockName);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Stock removed from exchange successfully.");
     }
 
     @DeleteMapping("/{stockExchangeName}")
-    public ResponseEntity<Void> removeStockExchange(@PathVariable String stockExchangeName) {
+    public ResponseEntity<String> removeStockExchange(@PathVariable String stockExchangeName) {
         stockExchangeDetailService.removeStockExchange(stockExchangeName);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Stock Exchange removed successfully.");
     }
 
     //List of stocks

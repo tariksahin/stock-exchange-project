@@ -4,17 +4,14 @@ import com.ing.stockexchange.entity.Stock;
 import com.ing.stockexchange.entity.StockExchange;
 import com.ing.stockexchange.entity.StockExchangeDetail;
 import com.ing.stockexchange.entity.StockExchangeDetailId;
+import com.ing.stockexchange.exception.ResourceAlreadyExistsException;
 import com.ing.stockexchange.exception.ResourceNotFoundException;
 import com.ing.stockexchange.repository.StockExchangeDetailRepository;
 import com.ing.stockexchange.repository.StockExchangeRepository;
 import com.ing.stockexchange.repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -37,15 +34,13 @@ public class StockExchangeDetailService {
     }
 
 
-    public StockExchangeDetail findStockExchangeDetailByExchangeName(String stockExchangeName) {
-        return stockExchangeDetailRepository.findByStockExchangeName(stockExchangeName);
-    }
+
 
     public void addStockToExchange(long stockId, long exchangeId, String stockName, String stockExchangeName) {
 
         // Check if the record already exists
         if (stockExchangeDetailRepository.existsById(new StockExchangeDetailId(stockId, exchangeId))) {
-            throw new DuplicateKeyException("Duplicated Record");
+            throw new ResourceAlreadyExistsException("Stock already added to this stock exchange");
         }
 
         StockExchangeDetailId id = new StockExchangeDetailId();
@@ -97,6 +92,22 @@ public class StockExchangeDetailService {
 
     @Transactional
     public void removeStockFromExchange(String stockExchangeName, String stockName) {
+        StockExchange stockExchange = stockExchangeRepository.findByName(stockExchangeName);
+        Stock stock = stockRepository.findByName(stockName);
+        List<Stock> stockExchangeDetails = getStocksByStockExchange(stockExchange.getExchangeId());
+
+        if (stockExchange == null) {
+            throw new ResourceNotFoundException("Stock Exchange not found with name: " + stockExchangeName);
+        }
+
+        if (stock == null) {
+            throw new ResourceNotFoundException("Stock not found with name: " + stockName);
+        }
+
+        if (stockExchangeDetails.size() == 0) {
+            throw new ResourceAlreadyExistsException("The "+stockName+ " stock is not exist in the " +stockExchangeName);
+        }
+
         stockExchangeDetailRepository.deleteByStockExchangeNameAndStockName(stockExchangeName, stockName);
     }
 

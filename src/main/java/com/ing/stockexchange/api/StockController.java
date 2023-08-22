@@ -8,19 +8,16 @@ import com.ing.stockexchange.entity.Stock;
 import com.ing.stockexchange.entity.StockExchange;
 import com.ing.stockexchange.mapper.StockMapper;
 import com.ing.stockexchange.service.StockExchangeServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/stock")
 public class StockController {
 
-    @Autowired
+
     private final StockExchangeServiceImpl stockExchangeServiceImpl;
 
 
@@ -47,9 +44,9 @@ public class StockController {
 
     // Update stock price
     @PutMapping
-    public ResponseEntity<Void> updateCurrentPrice(@RequestBody UpdatePriceRequest updatePriceRequest) {
+    public ResponseEntity<String> updateCurrentPrice(@RequestBody UpdatePriceRequest updatePriceRequest) {
         stockExchangeServiceImpl.updateCurrentPrice(updatePriceRequest.getStockName(), updatePriceRequest.getNewPrice());
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Price updated successfully.");
     }
 
     //List of stocks
@@ -62,10 +59,10 @@ public class StockController {
 
     //Delete stock from system
     @DeleteMapping("/{stockName}")
-    public ResponseEntity<Void> deleteStockByName(@PathVariable String stockName) {
+    public ResponseEntity<String> deleteStockByName(@PathVariable String stockName) {
 
         stockExchangeServiceImpl.deleteStockByName(stockName);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Stock removed successfully.");
     }
 
 
